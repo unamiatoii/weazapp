@@ -11,25 +11,37 @@ class WeatherInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (weatherData == null) {
       return Container(
-        padding: EdgeInsets.all(10.0),
-        child: Text(
-          "Sélectionnez une ville",
-          style: const TextStyle(
-            fontFamily: "Montserrat",
-            color: Colors.black,
-            decoration: TextDecoration.none,
-            fontSize: 24,
+          height: 500,
+          width: 600,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
           ),
-        ),
-      );
+          child: Column(
+            children: [
+              Text(
+                "Sélectionnez une ville",
+                style: const TextStyle(
+                  fontFamily: "Montserrat",
+                  color: Colors.black,
+                  decoration: TextDecoration.none,
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ));
     }
 
     return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        SizedBox(
+          height: 30,
+        ),
         Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.deepPurple),
+                color: Theme.of(context).colorScheme.primary),
             padding: EdgeInsets.all(10.0),
             child: Column(
               children: [
@@ -44,8 +56,9 @@ class WeatherInfoWidget extends StatelessWidget {
                           "${weatherData!.areaName}, ${weatherData!.country}",
                           style: const TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(
@@ -60,8 +73,10 @@ class WeatherInfoWidget extends StatelessWidget {
                                 Text(
                                   "${weatherData!.tempMax!.toStringAsFixed(1)}°",
                                   style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.none,
-                                    fontSize: 18,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ],
@@ -73,8 +88,10 @@ class WeatherInfoWidget extends StatelessWidget {
                                 Text(
                                   "${weatherData!.tempMin!.toStringAsFixed(1)}°",
                                   style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.none,
-                                    fontSize: 18,
+                                    fontSize: 20,
                                   ),
                                 ),
                               ],
@@ -88,8 +105,9 @@ class WeatherInfoWidget extends StatelessWidget {
                           weatherData!.weatherDescription!.toUpperCase(),
                           style: const TextStyle(
                               decoration: TextDecoration.none,
+                              color: Colors.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -121,6 +139,9 @@ class WeatherInfoWidget extends StatelessWidget {
                 ),
               ],
             )),
+        SizedBox(
+          height: 25,
+        ),
         WeatherForecastWidget(forecast: weatherData!.forecast!),
       ],
     );
