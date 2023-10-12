@@ -9,6 +9,7 @@ class WeatherData extends ChangeNotifier {
   String? weatherDescription;
   String? weatherIcon;
   double? tempFeelsLike;
+  List<Weather>? forecast; // Liste des prévisions
 
   WeatherData({
     this.areaName,
@@ -18,6 +19,7 @@ class WeatherData extends ChangeNotifier {
     this.weatherDescription,
     this.weatherIcon,
     this.tempFeelsLike,
+    this.forecast, // Initialisez la liste des prévisions
   });
 
   Future<WeatherData> fetchWeatherData(String cityName) async {
@@ -27,6 +29,8 @@ class WeatherData extends ChangeNotifier {
 
     try {
       final w = await weatherFactory.currentWeatherByCityName(cityName);
+      final forecastData =
+          await weatherFactory.fiveDayForecastByCityName(cityName);
       final newData = WeatherData(
         areaName: w.areaName,
         country: w.country,
@@ -35,6 +39,7 @@ class WeatherData extends ChangeNotifier {
         weatherDescription: w.weatherDescription,
         weatherIcon: w.weatherIcon,
         tempFeelsLike: w.tempFeelsLike?.celsius,
+        forecast: forecastData, // Stockez les prévisions dans votre modèle
       );
       notifyListeners(); // Notifie les auditeurs du changement de données
       return newData;

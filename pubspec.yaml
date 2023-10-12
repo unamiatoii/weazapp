@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   weather: ^3.1.1
+  modal_progress_hud_nsn: ^0.4.0
+  flushbar: ^1.10.4
 
 dev_dependencies:
   flutter_test:
