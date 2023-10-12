@@ -5,6 +5,9 @@ import 'package:weatherapp/models/weatherModel.dart';
 class WeatherInfoWidget extends StatelessWidget {
   final WeatherData? weatherData;
 
+  Color redColor = Color.fromARGB(255, 255, 0, 0);
+  Color blueColor = Color.fromRGBO(0, 0, 255, 1);
+
   WeatherInfoWidget({required this.weatherData});
 
   @override
@@ -69,12 +72,10 @@ class WeatherInfoWidget extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Icon(Icons.arrow_upward, color: Colors.red),
+                                Icon(Icons.arrow_upward, color: redColor),
                                 Text(
                                   "${weatherData!.tempMax!.toStringAsFixed(1)}°",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                  style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 20,
                                   ),
@@ -83,13 +84,10 @@ class WeatherInfoWidget extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Icon(Icons.arrow_downward,
-                                    color: Colors.blue),
+                                Icon(Icons.arrow_downward, color: blueColor),
                                 Text(
                                   "${weatherData!.tempMin!.toStringAsFixed(1)}°",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                  style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 20,
                                   ),
@@ -99,15 +97,14 @@ class WeatherInfoWidget extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 15,
                         ),
                         Text(
                           weatherData!.weatherDescription!.toUpperCase(),
-                          style: const TextStyle(
+                          style: TextStyle(
                               decoration: TextDecoration.none,
-                              color: Colors.white,
                               fontSize: 20,
-                              fontWeight: FontWeight.w500),
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -118,8 +115,8 @@ class WeatherInfoWidget extends StatelessWidget {
                       children: [
                         Container(
                           alignment: Alignment.center,
-                          width: 100,
-                          height: 100,
+                          width: 80,
+                          height: 80,
                           child: Image.network(
                             'https://openweathermap.org/img/wn/${weatherData!.weatherIcon}@2x.png',
                             fit: BoxFit.contain,
@@ -129,8 +126,8 @@ class WeatherInfoWidget extends StatelessWidget {
                           "${weatherData!.tempFeelsLike!.toStringAsFixed(1)}°",
                           style: const TextStyle(
                             decoration: TextDecoration.none,
-                            fontSize: 36,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

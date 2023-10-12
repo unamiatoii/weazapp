@@ -135,23 +135,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                            focusNode: _cityFocusNode,
-                            controller: _cityController,
-                            decoration: InputDecoration(
-                              labelText: 'Ville',
-                              prefixIcon: const Icon(Icons.location_city),
-                              fillColor: Theme.of(context).colorScheme.primary,
-
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            )),
+                            child: TextField(
+                              focusNode: _cityFocusNode,
+                              controller: _cityController,
+                              decoration: InputDecoration(
+                                labelText: 'Ville',
+                                prefixIcon: const Icon(Icons.location_city),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                labelStyle: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                               ),
-                              // Utilisez la couleur primaire du ColorScheme pour le texte entré
-                              labelStyle: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                          )),
+                            )),
+                      ),
                     ),
                     SizedBox(
                       height: 56.0,
@@ -190,30 +194,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     weatherData: _weatherData,
                   )
                 else
-                  const SizedBox(
-                    height: 20,
-                  ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: const Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Sélectionnez une ville",
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              color: Colors.white,
-                              decoration: TextDecoration.none,
-                              fontSize: 24,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: const Padding(
+                        padding: EdgeInsets.all(50),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Sélectionnez une ville",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                                fontSize: 24,
+                              ),
                             ),
-                          ),
-                        ],
-                      )),
-                )
+                          ],
+                        )),
+                  )
               ],
             ),
           ),
