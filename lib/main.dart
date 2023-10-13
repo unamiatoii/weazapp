@@ -7,25 +7,44 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    const customColorScheme = ColorScheme(
+      primary: Color.fromARGB(255, 66, 165, 245), // Couleur principale
+      secondary: Color(0xFF242423), // Couleur secondaire
+      surface: Colors.white,
+      background: Colors.white,
+      error: Colors.red,
+      onPrimary: Colors.white,
+      onSecondary: Colors.black,
+      onSurface: Colors.black,
+      onBackground: Colors.black,
+      onError: Colors.white,
+      brightness: Brightness.light,
+    );
+
+    final customTheme = ThemeData(
+      fontFamily: "Montserrat",
+      colorScheme: customColorScheme,
+      textTheme: TextTheme(
+        titleLarge: TextStyle(
+          color: customColorScheme.secondary,
+        ), // Exemple pour le style de titre
+        titleMedium: TextStyle(
+          color: customColorScheme.secondary,
+        ), // Exemple pour le style de sous-titre
+        bodyMedium: TextStyle(
+          color: customColorScheme.secondary,
+        ), // Exemple pour le style de texte du corps
+        // Vous pouvez personnaliser d'autres styles de texte ici
+      ),
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
-        useMaterial3: true,
-        textTheme: TextTheme(
-          titleLarge:
-              TextStyle(color: Colors.white), // Exemple pour le style de titre
-          titleMedium: TextStyle(
-              color: Colors.white), // Exemple pour le style de sous-titre
-          bodyMedium: TextStyle(
-              color: Colors.white), // Exemple pour le style de texte du corps
-          // Vous pouvez personnaliser d'autres styles de texte ici
-        ),
-      ),
+      theme: customTheme, // Utilisez votre thème personnalisé ici
       home: MyHomePage(),
     );
   }
@@ -40,15 +59,61 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _cityController = TextEditingController();
   WeatherData? _weatherData;
   FocusNode _cityFocusNode = FocusNode();
+  bool _isLoading = false;
 
   Future<void> _fetchWeatherData(String cityName) async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
+
       WeatherData weatherData = await WeatherData().fetchWeatherData(cityName);
+
       setState(() {
         _weatherData = weatherData;
+        _isLoading = false;
       });
     } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+
       print("Erreur lors de la récupération des données météorologiques : $e");
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              title: const Text(
+                'Erreur',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25),
+              ),
+              content: Text(
+                'Une erreur s\'est produite : $e',
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'Fermer',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
+              ],
+            );
+          });
     }
   }
 
@@ -56,76 +121,105 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('WeazApp'),
         centerTitle: true,
-        title: Text('WeazApp',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.deepPurple,
       ),
       body: SingleChildScrollView(
-          child: Column(children: [
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        focusNode: _cityFocusNode,
-                        controller: _cityController,
-                        decoration: InputDecoration(
-                          labelText: 'Ville',
-                          prefixIcon: Icon(Icons
-                              .location_city), // Icône à gauche du champ de texte
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.circular(10.0), // Bordure arrondie
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            )),
+                            child: TextField(
+                              focusNode: _cityFocusNode,
+                              controller: _cityController,
+                              decoration: InputDecoration(
+                                labelText: 'Ville',
+                                prefixIcon: const Icon(Icons.location_city),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                labelStyle: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                              ),
+                            )),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 56.0,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          String cityName = _cityController.text;
+                          _fetchWeatherData(cityName);
+                          _cityController.clear();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primary, // Couleur du texte du bouton
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
+                        child: const Text('Récupérer la météo'),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height:
-                        56.0, // Réglez la hauteur pour correspondre à celle du TextField
-                    child: ElevatedButton(
-                      onPressed: () {
-                        String cityName = _cityController.text;
-
-                        // Appel de la fonction pour récupérer les données météorologiques
-                        _fetchWeatherData(cityName);
-                        _cityFocusNode.unfocus();
-
-                        _cityController.clear();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor:
-                            Colors.deepPurple, // Couleur du texte du bouton
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Bordure arrondie du bouton
-                        ),
+                  ],
+                ),
+                if (_isLoading)
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).colorScheme.primary,
                       ),
-                      child: Text('Récupérer la météo'),
                     ),
-                  ),
-                ],
-              ),
-              if (_weatherData != null)
-                WeatherInfoWidget(
-                  weatherData: _weatherData,
-                )
-              else
-                Text('Sélectionnez une ville pour obtenir la météo.'),
-            ],
+                  )
+                else if (_weatherData != null)
+                  WeatherInfoWidget(
+                    weatherData: _weatherData,
+                  )
+                else
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: const Padding(
+                        padding: EdgeInsets.all(50),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Sélectionnez une ville",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                                fontSize: 24,
+                              ),
+                            ),
+                          ],
+                        )),
+                  )
+              ],
+            ),
           ),
-        )
-      ])),
+        ),
+      ),
     );
   }
 }
