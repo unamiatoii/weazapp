@@ -5,8 +5,8 @@ import 'package:weatherapp/models/weatherModel.dart';
 class WeatherInfoWidget extends StatelessWidget {
   final WeatherData? weatherData;
 
-  Color redColor = Color.fromARGB(255, 255, 0, 0);
-  Color blueColor = Color.fromRGBO(0, 0, 255, 1);
+  Color redColor = Color.fromARGB(255, 223, 3, 3);
+  Color blueColor = Color.fromRGBO(4, 4, 220, 1);
 
   WeatherInfoWidget({required this.weatherData});
 
@@ -76,6 +76,7 @@ class WeatherInfoWidget extends StatelessWidget {
                                 Text(
                                   "${weatherData!.tempMax!.toStringAsFixed(1)}°",
                                   style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.none,
                                     fontSize: 20,
                                   ),
@@ -88,6 +89,7 @@ class WeatherInfoWidget extends StatelessWidget {
                                 Text(
                                   "${weatherData!.tempMin!.toStringAsFixed(1)}°",
                                   style: TextStyle(
+                                    fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.none,
                                     fontSize: 20,
                                   ),
@@ -104,6 +106,7 @@ class WeatherInfoWidget extends StatelessWidget {
                           style: TextStyle(
                               decoration: TextDecoration.none,
                               fontSize: 20,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

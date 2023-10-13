@@ -12,8 +12,8 @@ class WeatherForecastWidget extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: forecast.map((weather) {
-          Color redColor = Color.fromARGB(255, 255, 0, 0);
-          Color blueColor = Color.fromRGBO(0, 0, 255, 1);
+          Color redColor = Color.fromARGB(255, 200, 10, 10);
+          Color blueColor = Color.fromRGBO(4, 4, 220, 1);
 
           return Container(
             height: 120,
@@ -55,7 +55,7 @@ class WeatherForecastWidget extends StatelessWidget {
                       '${weather.tempMax?.celsius?.toStringAsFixed(1)}°C',
                       style: TextStyle(
                           color: redColor, // Utilisez la couleur rouge
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),
                     SizedBox(
@@ -65,7 +65,7 @@ class WeatherForecastWidget extends StatelessWidget {
                       '${weather.tempMin?.celsius?.toStringAsFixed(1)}°C',
                       style: TextStyle(
                           color: blueColor, // Utilisez la couleur bleue
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),
                   ],
