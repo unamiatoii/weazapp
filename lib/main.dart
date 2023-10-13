@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const customColorScheme = ColorScheme(
-      primary: Color(0xFF137C8B), // Couleur principale
+      primary: Color.fromARGB(255, 66, 165, 245), // Couleur principale
       secondary: Color(0xFF242423), // Couleur secondaire
       surface: Colors.white,
       background: Colors.white,
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       onSurface: Colors.black,
       onBackground: Colors.black,
       onError: Colors.white,
-      brightness: Brightness.light, // Ou Brightness.dark si nécessaire
+      brightness: Brightness.light,
     );
 
     final customTheme = ThemeData(
