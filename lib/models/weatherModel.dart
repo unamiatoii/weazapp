@@ -23,7 +23,7 @@ class WeatherData extends ChangeNotifier {
   });
 
   Future<WeatherData> fetchWeatherData(String cityName) async {
-    final apiKey =
+    const apiKey =
         "cd820212af00e720a383783dbb7a591a"; // Remplacez par votre clé d'API
     final weatherFactory = WeatherFactory(apiKey, language: Language.FRENCH);
 
@@ -44,6 +44,7 @@ class WeatherData extends ChangeNotifier {
       notifyListeners(); // Notifie les auditeurs du changement de données
       return newData;
     } catch (e) {
+    
       print("Erreur lors de la récupération des données météorologiques : $e");
       throw e;
     }

@@ -31,20 +31,19 @@ class MyApp extends StatelessWidget {
       textTheme: TextTheme(
         titleLarge: TextStyle(
           color: customColorScheme.secondary,
-        ), // Exemple pour le style de titre
+        ), // Titre
         titleMedium: TextStyle(
           color: customColorScheme.secondary,
-        ), // Exemple pour le style de sous-titre
+        ), // Sous-titre
         bodyMedium: TextStyle(
           color: customColorScheme.secondary,
-        ), // Exemple pour le style de texte du corps
-        // Vous pouvez personnaliser d'autres styles de texte ici
+        ), // Corps du texte
       ),
     );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: customTheme, // Utilisez votre thème personnalisé ici
+      theme: customTheme, //Theme perso
       home: MyHomePage(),
     );
   }
@@ -127,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
             child: Column(
               children: [
                 Row(
@@ -195,13 +194,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 else
                   Container(
+                    height: 150,
+                    width: 500,
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: Theme.of(context).colorScheme.primary,
                     ),
                     child: const Padding(
-                        padding: EdgeInsets.all(50),
+                        padding: EdgeInsets.all(20),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               "Sélectionnez une ville",

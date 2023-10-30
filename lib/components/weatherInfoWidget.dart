@@ -14,12 +14,14 @@ class WeatherInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (weatherData == null) {
       return Container(
+          alignment: Alignment.center,
           height: 500,
-          width: 600,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "Sélectionnez une ville",
@@ -27,7 +29,6 @@ class WeatherInfoWidget extends StatelessWidget {
                   fontFamily: "Montserrat",
                   color: Colors.black,
                   decoration: TextDecoration.none,
-                  fontSize: 24,
                 ),
               ),
             ],

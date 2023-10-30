@@ -1,4 +1,4 @@
-WeazApp - Une Application Flutter pour les Prévisions Météorologiques
+#WeazApp - Une Application Flutter pour les Prévisions Météorologiques
 
 Bienvenue dans le référentiel de WeatherApp, une application Flutter qui vous permet de consulter en temps réel les données météorologiques de différentes villes et d'accéder à des prévisions précises pour les prochains jours.
 Présentation
@@ -9,7 +9,7 @@ Fonctionnalités
     Accès en temps réel aux données météorologiques de toutes les villes.
     Des prévisions précises pour les prochains jours.
 
-Comment Commencer
+#Comment Commencer
 
 Si c'est votre première expérience avec Flutter, vous pouvez consulter ces ressources utiles pour vous familiariser avec le framework :
 
